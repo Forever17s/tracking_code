@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title></title>
+  <script>
+    var cookie= {
+      set: function(n, j, k, m, l) {
+        z = new Date();
+        z.setTime(z.getTime() + (k || 0));
+        document.cookie = n + "=" + encodeURIComponent(j || "") + (k ? "; expires=" + z.toGMTString() : "") + ";path=/; domain=" + (m || (location.hostname=="localhost"?"":location.hostname)) + (l ? "; secure" : "");
+      },
+      get: function(a) {
+        return (a = document.cookie.match(RegExp("(^|;)\\s*" + a + "=([^;]*)", "i"))) ? decodeURIComponent(a[2]) : "";
+      }
+    }
+    cookie.set("_UID","hanweiqe::12312::1好我::akdfjalskdfjas",31536e6);
+    window._py = window._py||[];
+    window._py.push(['a', 'p..isBAGmNFG7OA-krFCLCq3P']);
+    window._py.push(['domain','stats.ipinyou.com']);
+    window._py.push(['e','']);
+    -function(d){
+    var f = 'https:' == location.protocol;//http://fm.p0y.cn/j/t/adv.js
+    //f = (f ? 'https' : 'http') + '://'+(f?'fm.ipinyou.com':'fm.p0y.cn')+'/ct/html/advtest/adv-v4.0.4.js';
+    f='http://localhost:63342/tracking_code/v4.0/js/adv-yoho-source.js';
+    var c = document.createElement("script");
+    c.type = "text/javascript";
+    c.async = true;
+    c.src=f;
+    var h = d.getElementsByTagName("script")[0];
+    h.parentNode.insertBefore(c, h);
+    }(document);
+    </script>
+
+
+</head>
+<body>
+<span class="price-sale">￥2010</span>
+<input id="product_id" type="hidden" value="2123123"/>
+<button type="button" id="buyclick">buyclick</button>
+<div name="collect">hellow</div>
+<button name="collect">collect</button>
+</body>
+</html>

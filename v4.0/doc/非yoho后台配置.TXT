@@ -1,0 +1,192 @@
+碧生源后台配置，广告主ID： 1528
+发布版本0
+配置如下：
+Trigger
+1.注册页面
+	当前页面URL
+	正则表达式
+	.*passport-signup.*
+2.注册事件
+	点击事件
+	JQuery selector
+	.btn-major
+3.购物车页面
+	当前页面URL
+	正则表达式
+	.*cart.html
+4.购物车提交页面
+	当前页面URL
+	正则表达式
+	.*cart-checkout.*
+5.提交订单事件
+	点击事件
+	JQuery selector
+	.btn-import
+6.支付页面
+	当前页面URL
+	正则表达式
+	.*paycenter.*
+7.支付按钮
+	点击事件
+	JQuery selector
+	.btn-import
+	
+
+tags
+1.注册事件
+脚本内容：
+	!function(){var a=py.$.selector(".action-account-check");if(a){py("event","register",a[0].value).track("rD.szh.ShFYGbGAxzRxoIfXzV1Zs_")}}();
+触发器：注册页面  注册事件
+
+2.购物车页面
+脚本内容：
+	!function(){var e=py.$.selector(".cart-item"),a={},b=[];for(var c=0;c<e.length;c++){var d={};d.id=py.$.getElementsByClassName("p-title",e[c])[0].getElementsByTagName("a")[0].href;d.id=d.id.match(new RegExp("product-(.*)\\.html"))[1];d.price=py.$.getElementsByClassName("p-price",e[c])[0].innerText.substr("1");d.count=py.$.getElementsByClassName("p-quantity",e[c])[0].getElementsByTagName("input")[0].value;b.push(d)}a.money=py.$.selector("#order_price .goods .price")[0].getElementsByTagName("b")[0].innerText.substr("1");a.items=b;py("event","viewCart",a).track("rD.hzh.HMLU8njcxcU2X_Y7U-OXo0")}();
+触发器：购物车页面
+
+3.提交订单事件
+脚本内容：
+	!function(){var a={}}();
+触发器：购物车提交页面 提交订单事件
+
+4.支付按钮
+脚本内容：
+	!function(){var b=py.$.selector(".span-section")[0].innerText.replace(/\r*\n*/g,"").trim().split(/ +/)[0].substr("4");var a=py.$.selector(".update-current-amount")[0].innerText.substr(1);py("event","order",{id:b,money:a,items:[{}]}).track("rD.zzh.XIq3RLyitfAL5RbLNEwOE0")}();
+触发器：支付页面 支付按钮
+
+5.提交
+脚本内容：
+	!function(){var b=function(){var g=py.$.selector(".cart-item"),a={},d=[];for(var e=0;e<g.length;e++){var f={};f.id=py.$.getElementsByClassName("p-title",g[e])[0].getElementsByTagName("a")[0].href;f.id=f.id.match(new RegExp("product-(.*)\\.html"))[1];f.price=py.$.getElementsByClassName("p-price",g[e])[0].innerText.substr("1");f.count=g[0].getElementsByTagName("td")[2].innerText;d.push(f)}a.money=py.$.selector("#order_price .goods .price")[0].getElementsByTagName("b")[0].innerText.substr("1");a.items=d;py("event","order",a).track("rD._zh.KSYu0yQSgLn7JRroYixGFX")};if(py.$.selector(".btn-import").length>0){py.$.addEvent(py.$.selector(".btn-import")[0],"click",b)}var c=function(){py.$.removeEvent(py.$.selector(".btn-import")[0],"click",b);py.$.addEvent(py.$.selector(".btn-import")[0],"click",b)};setTimeout(function(){c()},2000)}();
+触发器：购物车提交页面
+
+
+
+
+源码
+1，购物车页面
+!function(){
+var list = py.$.selector(".cart-item"),order={},items=[];
+for(var i = 0; i < list.length; i++){
+	var item = {};
+	item.id = py.$.getElementsByClassName("p-title",list[i])[0].getElementsByTagName("a")[0].href;
+	item.id = item.id.match(new RegExp("product-(.*)\\.html"))[1]
+	item.price = py.$.getElementsByClassName("p-price",list[i])[0].innerText.substr("1");
+	item.count = py.$.getElementsByClassName("p-quantity",list[i])[0].getElementsByTagName("input")[0].value
+	items.push(item);
+}
+order.money = py.$.selector("#order_price .goods .price")[0].getElementsByTagName("b")[0].innerText.substr("1")
+order.items = items;
+py('event','viewCart' ,order).track('rD.hzh.HMLU8njcxcU2X_Y7U-OXo0');
+}();	
+
+
+2.支付按钮
+!function(){
+var id = py.$.selector(".span-section")[0].innerText.replace(/\r*\n*/g,"").trim().split(/ +/)[0].substr("4");
+var money= py.$.selector(".update-current-amount")[0].innerText.substr(1);
+py('event','order',{"id" : id, "money" : money,"items":[{}]}).track('rD.zzh.XIq3RLyitfAL5RbLNEwOE0');
+}();
+
+3.提交
+!function(){
+	var a  = function(){
+		var list = py.$.selector(".cart-item"),order={},items=[];
+		for(var i = 0; i < list.length; i++){
+			var item = {};
+			item.id = py.$.getElementsByClassName("p-title",list[i])[0].getElementsByTagName("a")[0].href;
+			item.id = item.id.match(new RegExp("product-(.*)\\.html"))[1]
+			item.price = py.$.getElementsByClassName("p-price",list[i])[0].innerText.substr("1");
+			item.count = list[0].getElementsByTagName("td")[2].innerText
+			items.push(item);
+		}
+		order.money = py.$.selector("#order_price .goods .price")[0].getElementsByTagName("b")[0].innerText.substr("1")
+		order.items = items;
+		py('event','order' ,order).track('rD._zh.KSYu0yQSgLn7JRroYixGFX');
+	}
+	if(py.$.selector(".btn-import").length > 0){
+		py.$.addEvent(py.$.selector(".btn-import")[0],"click",a);
+	}
+	var f = function(){
+		py.$.removeEvent(py.$.selector(".btn-import")[0],"click",a);
+		py.$.addEvent(py.$.selector(".btn-import")[0],"click",a)
+	}
+	setTimeout(function(){f()},2000);
+}();
+
+
+
+
+驴妈妈后台配置，广告主ID： 5306
+发布版本0
+配置如下：
+Trigger
+1.当地游
+	点击事件
+	JQuery selector
+	#local_tour
+2.特卖会
+	点击事件
+	JQuery selector
+	#tuangou
+
+tags
+1.当地游
+脚本内容：
+(function(){
+	py('event','register',{id:'','data':{}}).track('Rds.C.-vXqO6ardLpk-a80XmA6a0');
+})()
+触发器：当地游
+
+2.特卖会
+脚本内容：
+(function(){
+	py('event','register',{id:'','data':{}}).track('Rds.V.SUeN79FD7gY6C4WGmDa11X');
+})()
+触发器：特卖会
+
+
+全棉时代后台配置，广告主ID： 5590
+Trigger
+1.用户中心--个人信息
+当前页面URL
+正则表达式
+.*member/myIndex.ihtml
+2.个人资料
+当前页面URL
+正则表达式
+.*member/searchmember.ihtml
+
+tags
+1.用户中心--个人信息
+脚本内容
+(function(){
+var name=py.$.selector(".uxx-ul")[0].getElementsByTagName("li")[0].getElementsByTagName("b")[0].innerText
+var id = py.$.selector(".uxx-ul")[0].getElementsByTagName("li")[3].getElementsByTagName("label")[0].innerText
+py("remove","event","viewPage");
+py("set","user",{id:id,name:name})
+py("event","viewPage")
+})()
+触发器：用户中心--个人信息
+
+2.个人资料
+脚本内容
+(function(){
+var name=py.$.selector(".uxx-ul")[0].getElementsByTagName("li")[0].getElementsByTagName("b")[0].innerText
+var id = py.$.selector(".uxx-ul")[0].getElementsByTagName("li")[3].getElementsByTagName("b")[0].innerText
+py("remove","event","viewPage");
+py("set","user",{id:id,name:name})
+py("event","viewPage")
+})()
+触发器:个人资料
+
+
+尚德广告主后台配置，广告主ID：200000005
+Trigger
+1.收集手机号
+始终加载
+正则表达式
+*
+
+tags
+1.收集手机号
+py.$.sdIn=function(){try{var d={},b=py.$.selector("input[name=msg_tel]"),g=py.$.selector("input[name=msg_name]"),a=py.$.selector("input[name=msg_email]"),c=py.$.selector("input[name=msg_content]");b.length>0&&b[0].value!=""&&(d.mobile=b[0].value);g.length>0&&g[0].value!=""&&(d.name=g[0].value);a.length>0&&a[0].value!=""&&(d.email=a[0].value);c.length>0&&c[0].value!=""&&(d.message=c[0].value.substring(0,20));d.flag="0";if(d.mobile){py("event","register",{data:d}).track("_i84T.sV2.XeFNnBf-QAlEXvg8wrZsJ0")}}catch(f){}};py.$.sdCt=function(){try{if(event.type=="keydown"&&event.keyCode==13){var d=$(".chat-view-window-editor textarea")[0].value;if(d!=""){py("event","register",{data:{flag:"1",message:d}}).track("_i84T.sV2.XeFNnBf-QAlEXvg8wrZsJ0")}}else{if(event.type=="click"){var c=$(".chat-view-window-history li"),b;if(c.length>0){for(var a=c.length-1;a>=0;a--){if($(c[a]).attr("userid")&&$(c[a]).attr("userid").indexOf("guest")>-1){py("event","register",{data:{flag:"1",message:c[a].innerText.substring(0,20)}}).track("_i84T.sV2.XeFNnBf-QAlEXvg8wrZsJ0");break}}}}}}catch(f){}};py.$.sdFun=function(){try{var d=py.$.selector(".chat-view-submit-submit");if(d.length>0){py.$.removeEvent(d[0],"click",py.$.sdIn);py.$.addEvent(d[0],"click",py.$.sdIn)}var a=py.$.selector(".chat-view-submit");if(a.length>0){py.$.removeEvent(a[0],"click",py.$.sdCt);py.$.addEvent(a[0],"click",py.$.sdCt)}var b=py.$.selector(".chat-view-window-editor textarea");if(b.length>0){py.$.removeEvent(b[0],"keydown",py.$.sdCt);py.$.addEvent(b[0],"keydown",py.$.sdCt)}}catch(c){}};py.$.sd=setInterval(py.$.sdFun,500);
+触发器：收集手机号

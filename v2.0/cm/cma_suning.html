@@ -1,0 +1,204 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<!-- saved from url=(0037)http://cm.ipinyou.com/cma_suning.html -->
+<html>
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+
+    <meta http-equiv="Cache-control" content="no-cache">
+    <title>cma</title>
+</head>
+<body>
+<script type="text/javascript">
+    (function () {
+        try {
+            var c = "";
+            var cmArray = ["http://cms.tanx.com/t.gif?tanx_nid=29600513&tanx_cm", "http://cm.g.doubleclick.net/pixel?google_nid=ipy&google_cm", "http://cm.pos.baidu.com/pixel?dspid=6418041", "https://cm.g.doubleclick.net/pixel?google_nid=ipym&google_cm", "http://cm.miaozhen.atm.youku.com/cm.gif?dspid=11112", "http://cc.xtgreat.com/cm.gif?dspid=11164", "http://cm.qtmojo.com/pixel?allyes_dspid=192&allyes_cm", "http://cm.ipinyou.com/qq/cmr.gif", "http://stats.ipinyou.com/adin/cmr.gif", "http://t.go.sohu.com/cm.gif?ver=1&mid=10012", "http://sax.sina.com.cn/cm?sina_nid=1", "http://ckm.iqiyi.com/pixel?qiyi_nid=71000015&qiyi_sc"];
+            var cmIndexArray = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11];
+
+            function sortMethod(v, e) {
+                return v - e
+            }
+
+            //得到url中的参数值
+            function getParamValue(x) {
+                x = x.replace("/[\\[]/", "\\[").replace("/[\\]]/", "\\]");
+                var w = "[\\?&]" + x + "=([^&#]*)", A = new RegExp(w), y = A.exec(window.location.href);
+                if (y) {
+                    var z = "", e = y[1].replace(/\+/g, " ");
+                    try {
+                        z = decodeURIComponent(e);
+                        return decodeURIComponent(z)
+                    } catch (v) {
+                        return ""
+                    }
+                }
+                return ""
+            }
+
+            var cookieUtil = {
+                set: function (v, w, e) {
+                    var x = new Date();
+                    x.setDate(x.getDate() + e);
+                    document.cookie = v + "=" + encodeURIComponent(w) + ((e == null) ? "" : ";expires=" + x.toGMTString())
+                }, get: function (v) {
+                    if (!document.cookie) {
+                        return ""
+                    }
+                    var w = new RegExp("(^| )" + v + "=([^;]*)(;|\x24)"), e = w.exec(document.cookie);
+                    if (!e) {
+                        return ""
+                    }
+                    var x = e[2] || "";
+                    if ("string" == typeof x) {
+                        x = decodeURIComponent(x);
+                        return x
+                    }
+                    return ""
+                }
+            };
+            //得到当前cookie mapping地址对应的索引号
+            var m = function (e) {
+                for (var v = 0; v < cmArray.length; v++) {
+                    if (e == cmArray[v]) {
+                        return v
+                    }
+                }
+                return 0
+            };
+            //得到已map的cookie记录的时间
+            var getCookeDay = function () {
+                var e = cookieUtil.get("py_map_list").split("&")[0];
+                var v = e.split("/").join(" ");
+                var x = new Date();
+                var w = x.getFullYear() + "/" + (x.getMonth() + 1) + "/" + x.getDate();
+                return v || w
+            };
+            //得到还没有进行过cookie mapping的索引
+            var a = function (e, A) {
+                var v = e;
+                var B = A;
+                for (var x = 0; x < v.length; x++) {
+                    for (var w = 0; w < B.length; w++) {
+                        if (v[x] == B[w]) {
+                            v[x] = null;
+                            B[w] = null
+                        }
+                    }
+                }
+                var y = v.concat(B);
+                var z = y.length;
+                while (z--) {
+                    if (y[z] == null) {
+                        y.splice(z, 1)
+                    }
+                }
+                y = y.sort(sortMethod);
+                return y
+            };
+            //得到cookie记录的时间差，返回n天
+            var cookieDayDiff = function () {
+                var w = getCookeDay();
+                var v = new Date(w).getTime();
+                var e = new Date().getTime();
+                return Math.floor((e - v) / 86400000)
+            };
+            //得到已经排序好的cookie mapping的索引号
+            var getSortMappingIndex = function (e) {
+                e.sort(sortMethod);
+                var w = [e[0]];
+                for (var v = 1; v < e.length; v++) {
+                    if (e[v] !== w[w.length - 1]) {
+                        w.push(e[v])
+                    }
+                }
+                return w;
+                if (n[0] == "") {
+                    n.splice(0, 1)
+                }
+                return n
+            };
+            //得到已经cookie mapping的索引号
+            var getMappingIndex = function () {
+                var e = cookieUtil.get("py_map_list").split("&");
+                if (e.length > 1) {
+                    e = getSortMappingIndex(e[1].split("-"));
+                    return e
+                }
+                return []
+            };
+            //得到可以进行cookie mapping的地址
+            var getCookieMappingUrl = function () {
+            	//得到还没有进行过cookie mapping的索引
+                var w = a(cmIndexArray, getMappingIndex());
+                var e = [];
+                for (var v = 0; v < w.length; v++) {
+                    var x = w[v];
+                    e.push(cmArray[x])
+                }
+                return e
+            };
+            var d;
+
+            function timeOutCookieMapping() {
+                if (_maps.length > 0) {
+                    cookieMapping();
+                }
+            }
+
+            function cookieMapping() {
+                var e = document.createElement("img");
+                c = _maps[0];
+                e.setAttribute("src", c);
+                e.setAttribute("id", "mapImg");
+                e.onload = imgOnload;
+                document.body.appendChild(e);
+                e.style.display = "none";
+                _maps.splice(0, 1);
+                d = setTimeout(timeOutCookieMapping, 3000)
+            }
+
+            function imgOnload() {
+                clearTimeout(d);
+                this.onload = null;
+                this.parentNode.removeChild(this);
+                //得到当前cookie mapping的索引号
+                var e = m(c);
+                var x = getMappingIndex();
+                x.push(e);
+                var w = x.join("-");
+                var v = t().split(" ").join("/");
+                cookieUtil.set("py_map_list", (v + "&" + w), 3);
+                if (_maps.length > 0) {
+                    setTimeout(cookieMapping, 20)
+                }
+            }
+            //初始化方法，入口方法
+            var init = function () {
+                var w = cookieDayDiff();
+                if (w > 3) {
+                    cookieUtil.set("py_map_list", "")
+                }
+                if (!cookieUtil.get("py_map_list")) {
+                    _maps = cmArray.slice(0, 3)
+                } else {
+                    var v = getCookieMappingUrl();
+                    if (v.length > 2) {
+                        _maps = v.slice(0, 2)
+                    } else {
+                        _maps = v.slice(0, v.length)
+                    }
+                }
+                if (_maps.length > 0) {
+                    cookieMapping(_maps)
+                }
+                var e = getParamValue("sid");
+                new Image().src = "http://cm.ipinyou.com/suning/cms.gif?sid=" + e
+            };
+            init()
+        } catch (o) {
+        }
+    })();
+
+</script>
+</body>
+</html>

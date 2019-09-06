@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>nihao</title>
+    <script>
+
+        (function(w,d,s,l,a){
+            w._CommandName_=l;w[l]=w[l]||function(){(w[l].q=w[l].q||[]).push(arguments);
+                        w[l].track = function(){(w[l].q[w[l].q.length-1].t=[]).push(arguments)};return w[l]},
+                    w[l].a=a,w[l].l=1*new Date();
+            var c = d.createElement(s);c.async=1;
+            // c.src='../js/a_air.js';//(f ? 'https' : 'http') + '://'+(f?'fm.ipinyou.com':'fm.p0y.cn')+'/j/t/adv.js';
+           c.src='../js/py-airbnb-source.js';
+            var h = d.getElementsByTagName("script")[0];h.parentNode.insertBefore(c, h);
+        })(window,document,'script','py','CO..0N23Vfr5D4WX-uxZnAPJR_');
+        //py('set','extend',"abcdefg");
+       py('set','default',{'events':['standingTime','scrollEvent']});
+        //py('set','domain','www.baidu.com');
+       // py('set','domain',['www.ipinyou.com.cn']);
+       // py("set","mapping","0")
+        py('event','viewPage');
+       // py('event','viewActivity',"adf");
+       //  py("event","order",{"id":"111222333","money":"90.00","items":[{"id":"1001","count":"1","price":"20.00"},{"id":"1002","count":"2","price":"35.00"}] }).track("mytest");
+      //  py("remove","event","viewPage")
+    </script>
+
+
+</head>
+<body>
+<br>
+<br><br><br><br><br><br><br><br><br><br><br><br><br><br>
+<br><br><br><br><br><br><br><br><br><br><br><br><br><br>
+<br><br><br><br><br><br><br><br><br><br><br><br><br><br>
+<br><br><br><br><br><br><br><br><br><br><br><br><br>
+<br>
+<br><br><br><br><br><br><br><br><br><br><br><br><br>
+<a href="#abc" >abcksdfalsdfk</a>
+<input type="button"  name="trackButton" onclick="trackFun()" value="测试转化请求"/>
+<button  name="bb" >name1_bb</button>
+<button  name="bb" >name1_bb</button>
+<input id="id" type="button" value="id">
+<input id="test" type="button" value="test">
+<input id="hehe" type="button" value="hehe">
+<div id="buttons"></div>
+<input id="bind" type="button" value="bind" onclick="bind()">
+<input id="unbind" type="button" value="unbind" onclick="unbind()">
+<input id="addButton" type="button" value="addButton" onclick="addButton()">
+<input id="removeButton" type="button" value="clearButton" onclick="removeButton()">
+
+<script>
+    function trackFun(){
+      py('event','collect','100001','mytest');//.track("mytest2");
+      py("event","order",{"id":"111222333","trackId":"mytest","money":"90.00","items":[{"id":"1001","count":"1","price":"20.00"},{"id":"1002","count":"2","price":"35.00"}] });//.track("mytest2");
+
+      py('event','addCart', '100001','mytest');//.track("mytest2");
+
+      py('event','leads',{ 'id':'100001',"trackId":"mytest","data":{"name":"Test","mobile":"152****0312", "type":"SAX"}});//.track("mytest2");
+
+      py("event","register",{ 'id':'100001',"trackId":"mytest","data":{  "name":"Test","email":"test001@test.com" }});//.track("mytest2");
+
+      py("event","custom",'play',{"id": "10002","trackId":"mytest","data":{ "name":"互动视频1","mobile":"152****0321"}});//.track("mytest2");
+
+      py("event","purchase",{"id":"111222333","trackId":"mytest","money":"90.00","items":[{"id":"1001","count":"1","price":"20.00"},{"id":"1002","count":"2","price":"35.00"}] });//.track("mytest2");
+    }
+    function testFun(){py('set','user',{'category':[123,2324]});py('event','viewActivity',{'name':'testtesttest'});}
+    var fun=function(){py('event','viewActivity',{'name':'testtesttest'});}
+    function bind(){
+        py.$.addEvent(py.$.selector("#test"),'click',fun);
+        //py.$.addEvent(py.$.selector("#test"),'click',function(){py('set','user',{'category':[123,2324]});py('event','viewActivity',{'name':'testtesttest'});alert("click")});
+    }
+    function unbind(){
+        py.$.removeEvent(py.$.selector("#test"),'click',fun);
+        //py.$.addEvent(py.$.selector("#test"),'click',function(){py('set','user',{'category':[123,2324]});py('event','viewActivity',{'name':'testtesttest'});alert("click")});
+    }
+    function addButton(){
+        document.getElementById("buttons").innerHTML='<input id="test" type="button" value="test">';
+    }
+    function removeButton(){
+        document.getElementById("buttons").innerHTML='';
+    }
+</script>
+</body>
+</html>

@@ -1,0 +1,169 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>nihao</title>
+    <script>
+
+        (function(w,d,s,l,a){
+            w._CommandName_=l;w[l]=w[l]||function(){(w[l].q=w[l].q||[]).push(arguments);
+                        w[l].track = function(){(w[l].q[w[l].q.length-1].t=[]).push(arguments)};return w[l]},
+                    w[l].a=a,w[l].l=1*new Date();
+            var c = d.createElement(s);c.async=1;
+            // c.src='../js/a_4.2.js';//(f ? 'https' : 'http') + '://'+(f?'fm.ipinyou.com':'fm.p0y.cn')+'/j/t/adv.js';
+           c.src='../js/py-analysis-source.js';
+            var h = d.getElementsByTagName("script")[0];h.parentNode.insertBefore(c, h);
+        })(window,document,'script','py','CO..0N23Vfr5D4WX-uxZnAPJR_');
+        //py('set','extend',"abcdefg");
+       // py('set','default',{'events':['standingTime','scrollEvent']});
+        //py('set','domain','www.baidu.com');
+       // py('set','domain',['www.ipinyou.com.cn']);
+       py("set","mapping","0");
+        py('set','user','abc',{'category':"123"});
+        py('event','viewPage');
+       // py('event','viewActivity',"adf");
+       //  py("event","order",{"id":"111222333","money":"90.00","items":[{"id":"1001","count":"1","price":"20.00"},{"id":"1002","count":"2","price":"35.00"}] }).track("mytest");
+      //  py("remove","event","viewPage")
+
+        py('set','site',{ 'industry':'product'});
+        py('event','viewItem',{
+          'product_no':'nosdf',
+          'spu_id':'spu_id',
+          'name':'测试商品',
+          'category':'分类',
+          'price':'12.13',
+          'orig_price':'32.123',
+          'currency_code':'RMB',
+          'product_url':'http://test.url.com',
+          'pc_pic_url':'http://test.url.com',
+          'pic_size':'12x42',// {image width}x{image height}
+          'promotion':'1',
+          'on_time':'2019-02-23',
+          'off_time':'2019-02-23',
+          'sold_out':'0',
+          'stock':'1',
+          'brand':'品牌'
+        });
+
+    </script>
+
+
+</head>
+<body>
+<a href="#abc" >abcksdfalsdfk</a>
+<input type="button"  name="trackButton" onclick="trackFun()" value="测试转化请求"/>
+<button  name="bb" >name1_bb</button>
+<button  name="bb" >name1_bb</button>
+<input id="id" type="button" value="id">
+<input id="hehe" type="button" value="hehe">
+<div id="buttons"></div>
+<input id="bind" type="button" value="bind" onclick="bind()">
+<input id="unbind" type="button" value="unbind" onclick="unbind()">
+<input id="addButton" type="button" value="addButton" onclick="addButton()">
+<input id="removeButton" type="button" value="clearButton" onclick="removeButton()">
+
+<br>
+<br><br><br><br><br><br><br><br><br><br><br><br><br>
+<script>
+    function trackFun(){
+      py('event','statistics','trackId');
+      py('event','collect','100001','mytest');//.track("mytest2");
+      py("event","order",{"id":"111222333","trackId":"mytest","money":"90.00","items":[{"id":"1001","count":"1","price":"20.00"},{"id":"1002","count":"2","price":"35.00"}] });//.track("mytest2");
+
+      py('event','addCart', '100001').track("mytest2");
+
+      py('event','addCart', '100001',"mytest2");
+
+      py('event','leads',{ 'id':'100001',"trackId":"mytest","data":{"name":"Test","mobile":"152****0312", "type":"SAX"}});//.track("mytest2");
+
+      py("event","consult","trackId",{"message":"testMessage"});
+      py("event","message","trackId",{"message":"testMessage"});
+
+      py('event','viewSearch','keywords');
+
+      py("event","viewCart",{"trackId":"mytest","money":"90.00","items":[{"id":"1001","count":"1","price":"20.00"},{"id":"1002","count":"2","price":"35.5.00"}]} );
+
+
+      py('event','viewItem','no001');
+
+      py('event','viewItem',{
+        'product_no':'no001',
+        'price':123.123,
+        'currency_code':'RMB',
+        'promotion':'热卖',
+        'sold_out':0,
+        'brand':'品牌',
+        'discount':7,
+        'name':'商品名称',
+        'product_url':'http://product.url.com',
+        'mobile_product_url':'http://product.url.com',
+        'ios_schema_url':'app://product.url.com',
+        'android_schema_url':'app://product.url.com',
+        'spu_id':'spu_id',
+        'category':'首页/母婴',
+        'category_id':'412312',
+        'category_path':'首页，母婴',
+        'on_time':'2019-06-01',
+        'off_time':'2219-06-01',
+        'brand_id':'4123',
+        'brand_url':'http://brand.url.com',
+        'mobile_brand_url':'http://brand.url.com',
+        'ios_brand_schema':'app://brand.url.com',
+        'android_brand_schema':'app://brand.url.com',
+        'brand_logo':'http://brand.url.com/logo.jpg',
+        'mobile_brand_logo':'http://brand.url.com/logo.jpg',
+        'shop_name':'测试',
+        'shop_id':'test',
+        'shop_url':'http://shop.url.com',
+        'mobile_shop_url':'http://shop.url.com/logo.jpg',
+        'ios_shop_schema':'app://shop.url.com',
+        'android_shop_schema':'app://shop.url.com',
+        'shop_logo':'http://shop.url.com/logo.jpg',
+        'mobile_shop_logo':'http://shop.url.com/logo.jpg',
+        'activity_content':'test',
+        'activity_start_time':'2019-06-01',
+        'activity_end_time':'2019-08-01',
+        'activity_url':'http://activeyte.url.com',
+        'short_name':'test',
+        'mobile_pic_url':'http://activeyte.url.com',
+        'mobile_activity_url':'http://activeyte.url.com',
+        'orig_price':'123',
+        'short_desc':'12',
+        'removed':'0',
+        'extend':'extend',
+        'mobile_pic_ratio':'1:2',
+        'mobile_pic_width':300,
+        'mobile_pic_height':400,
+        'mobile_pic_size':'300X400',
+        'pc_pic_url':'url',
+        'pic_ratio':'1:2',
+        'pic_width':300,
+        'pic_height':150,
+        'pic_size':'300X150'
+      });
+
+      py("event","register",{ 'id':'100001',"trackId":"mytest","data":{  "name":"Test","email":"test001@test.com" }});//.track("mytest2");
+
+      py("event","custom",'play',{"id": "10002","trackId":"mytest","data":{ "name":"互动视频1","mobile":"152****0321"}});//.track("mytest2");
+
+      py("event","purchase",{"id":"111222333","trackId":"mytest","money":"90.00","items":[{"id":"1001","count":"1","price":"20.00"},{"id":"1002","count":"2","price":"35.00"}] });//.track("mytest2");
+    }
+    function testFun(){py('set','user',{'category':[123,2324]});py('event','viewActivity',{'name':'testtesttest'});}
+    var fun=function(){py('event','viewActivity',{'name':'testtesttest'});}
+    function bind(){
+        py.$.addEvent(py.$.selector("#test"),'click',fun);
+        //py.$.addEvent(py.$.selector("#test"),'click',function(){py('set','user',{'category':[123,2324]});py('event','viewActivity',{'name':'testtesttest'});alert("click")});
+    }
+    function unbind(){
+        py.$.removeEvent(py.$.selector("#test"),'click',fun);
+        //py.$.addEvent(py.$.selector("#test"),'click',function(){py('set','user',{'category':[123,2324]});py('event','viewActivity',{'name':'testtesttest'});alert("click")});
+    }
+    function addButton(){
+        document.getElementById("buttons").innerHTML='<input id="test" type="button" value="test">';
+    }
+    function removeButton(){
+        document.getElementById("buttons").innerHTML='';
+    }
+</script>
+</body>
+</html>

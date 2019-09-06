@@ -1,0 +1,136 @@
+20160630--有货（广告主ID--1123）后台配置代码  http://spixel-api.ipinyou.com/
+
+trigger
+
+1.所有页面
+始终加载
+正则表达式
+*
+
+2.单品代码
+当前页面URL
+正则表达式
+.*item.yohobuy.com.*
+
+3.添加购物车
+点击事件
+jQuery selector
+#add-to-cart
+
+4.收藏
+点击事件
+jQuery selector
+#collect-product
+
+5.购物车页面
+当前页面URL
+正则表达式
+.*shopping/cart.*
+
+6.订单提交
+当前页面URL
+正则表达式
+.*shopping/pay.*
+
+7.点击咨询
+点击事件
+jQuery selector
+.consult-comment .title
+
+tags配置
+1.所有页面-配置user
+!function(){
+	var uid=py.$.getCookie("_UID"),userAbj={};
+	if(uid!=""){
+		var strs=uid.split("::");
+		userAbj.id=strs[1],userAbj.type=strs[2]
+	}
+	userAbj.cookieId=py.$.getCookie("suid");
+	py("set","user",userAbj);
+}();
+触发器：所有页面
+
+2.添加购物车
+if(_goodsData){
+py('event','addCart',_goodsData.id);
+}
+触发器：单品代码  添加购物车
+
+
+3.收藏
+if(_goodsData){
+py('event','collect',_goodsData.id);
+}
+触发器：单品代码  收藏
+
+4.购物车页面
+!function(){var e="",c="";var r=document.getElementsByTagName("script");var l=function(j,i){return j.match(new RegExp(i+"=\\'([^\\']*)\\'"))};for(var h=0;h<r.length;h++){if(r[h].type==""&&r[h].src==""){var p=l(r[h].innerText,"_money"),o=l(r[h].innerText,"_productList");if(p!=null&&o!=null){e=p?p[1]:"";c=o?o[1]:""}}}var k=c.split(";"),q=[];for(var g=0;g<k.length;g++){if(k[g]!=""){var f={},d=k[g].split(",");f.id=d[0];f.count=d[1];q.push(f)}}
+py("event","viewCart",{money:e,items:q})
+}();
+触发器：购物车页面
+
+5.订单提交
+!function(){var f="",d="",r="";var v=document.getElementsByTagName("script");var p=function(i,c){return i.match(new RegExp(c+"=\\'([^\\']*)\\'"))};for(var k=0;k<v.length;k++){if(v[k].type==""&&v[k].src==""){var t=p(v[k].innerText,"_money"),q=p(v[k].innerText,"_productList"),o=p(v[k].innerText,"_orderno");if(t!=null||q!=null||o!=null){f=t?t[1]:"";d=q?q[1]:"";r=o?o[1]:""}}}var l=d.split(";"),u=[];for(var h=0;h<l.length;h++){if(l[h]!=""){var g={},e=l[h].split(",");g.id=e[0];g.count=e[1];u.push(g)}}
+py("event","order",{id:r,money:f,items:u})
+}();
+触发器：购物车页面
+
+6.点击咨询
+if(_goodsData){
+py("event","custom","s3",{id:_goodsData.id})
+}
+触发器：单品页    点击咨询
+
+备注：
+购物车页面源码：
+!function(){
+	var _m='', _p='';
+	var s = document.getElementsByTagName("script")
+	var fun = function(a,b){
+		return a.match(new RegExp( b + "=\\'([^\\']*)\\'"))
+	} 
+	for(var i=0;i<s.length;i++){
+		if(s[i].type==""&&s[i].src==""){
+			var a = fun(s[i].innerText,"_money"), b = fun(s[i].innerText,"_productList");
+			if(a !=null && b!=null ){
+				_m = a?a[1]:''; _p = b?b[1]:'';
+			}
+		}
+	}
+	var arr = _p.split(";"),item=[]
+	for(var j = 0;j<arr.length;j++){
+		if(arr[j]!=""){
+			var m ={},n = arr[j].split(",")
+			m.id = n[0]; m.count = n[1];
+			item.push(m)
+		}
+	}
+	py("event","viewCart",{"money":_m,"items":item});
+}()
+
+订单页面源码
+!function(){
+	var _m='', _p='',_id='';
+	var s = document.getElementsByTagName("script")
+	var fun = function(a,b){
+		return a.match(new RegExp( b + "=\\'([^\\']*)\\'"))
+	} 
+	for(var i=0;i<s.length;i++){
+		if(s[i].type==""&&s[i].src==""){
+			var a = fun(s[i].innerText,"_money"), b = fun(s[i].innerText,"_productList"), c = fun(s[i].innerText,"_orderno")
+			if(a !=null || b!=null || c!=null){
+				_m = a?a[1]:''; _p = b?b[1]:''; _id = c?c[1]:'';
+			}
+		}
+	}
+	var arr = _p.split(";"),item=[]
+	for(var j = 0;j<arr.length;j++){
+		if(arr[j]!=""){
+			var m ={},n = arr[j].split(",")
+			m.id = n[0]; m.count = n[1];
+			item.push(m)
+		}
+	}
+	py("event","order",{id:_id,"money":_m,"items":item});
+}()
+

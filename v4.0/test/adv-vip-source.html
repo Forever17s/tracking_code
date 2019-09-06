@@ -1,0 +1,49 @@
+﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+</head>
+<body>
+<input type="button" value="转化" onclick="retarget()">
+<script type = "text/javascript">
+   var _goodsData = {
+    id:'123456',// 商品ID
+    name:'测试商品', // 商品名称
+    origPrice:'123', // 商品原价(非必填)
+    price:'12.3', // 商品售价
+    brand:'专场名称', // 专场名称(非必填)
+    imgUrl:'http://img.xxxx.com/xxx.jpg', // 商品预览图
+    productUrl:'http://product.xxx.com/123456.html', // 商品URL地址
+    categoryId:'12', // 所属分类ID
+    category:'测试', // 所属分类完整路径
+    promotion:'热卖', // 促销信息
+    discount:'8.8', // 折扣数字(非必填)
+    soldOut:'1', // 状态 1下架，0在售（必填）2预热
+    domain:'VIP_BJ', // 分站（如有分站必填） 上海：VIP_SH 成都：VIP_CD 北京：VIP_BJ 华南：VIP_NH
+    extend:'{"bimg":"http://img.xxxx.com/xxx.jpg","burl":"http://www.vip.com/show-476376.html","bname":"苹果"}' // 该字段为扩展字段bimg：品牌图，burl：品牌专场URL，bname：品牌名称
+};
+var _py = _py || [];
+_py.push(['a', 'KC..7AQS-TepzzQ1hHPjU38h_0']);
+_py.push(['domain','stats.ipinyou.com']);
+if (typeof _goodsData != 'undefined') {
+    _py.push(['pi',_goodsData]);
+};
+-function(d) { 
+    var s = d.createElement('script'), 
+    e = d.body.getElementsByTagName('script')[0]; e.parentNode.insertBefore(s, e), 
+    f = 'https:' == location.protocol; 
+        //s.src = (f ? 'https' : 'http') + '://'+(f?'file.ipinyou.com':'file.ipinyou.com.cn')+'/j/vip-adv.js';
+        s.src="../js/adv-vip-source.js";
+    }(document);
+</script>
+<noscript><img src="//stats.ipinyou.com/adv.gif?a=wL..9uHk3XP8vI1Jn28qNhcAMX&e=" style="display:none;"/></noscript>
+
+<script type="text/javascript">
+    function retarget(){
+        if("ipy" in window){
+            ipy.retarget("a","b","c")
+        }
+    }
+</script>
+</body>
+</html>

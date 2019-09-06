@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>测试转化请求</title>
+</head>
+<script>
+    function testFun(){
+        /**
+         *         set 事件
+         */
+        py('set','domain','www.baidu.com'); // 不会传递后台
+        py("set","mapping","2"); // 不会传递后台
+        py('set','default',{'events':['standingTime','scrollEvent']}); // 不会传递后台
+        py('set','extend',"abcdefg");
+        py('set','user','hello',{'category':[123,2324]});
+        py("set","clickParam","py_ck"); // 不会传递后台
+        py('set','site',{ 'industry':'product'});
+        /**
+         *         event 事件
+         */
+        py('event','viewHome');
+        py('event','viewList',{"categoryPath":"http://127.0.0.1:5500/v4.0/test/adv4.3.0.html"});
+        py('event','viewItem',{
+            'product_no':'no001',
+            'price':123.123,
+            'currency_code':'RMB',
+            'promotion':'热卖',
+            'sold_out':0,
+            'brand':'品牌',
+            'discount':7,
+            'name':'商品名称',
+            'product_url':'http://product.url.com',
+            'mobile_product_url':'http://product.url.com',
+            'ios_schema_url':'app://product.url.com',
+            'android_schema_url':'app://product.url.com',
+            'spu_id':'spu_id',
+            'category':'首页/母婴',
+            'category_id':'412312',
+            'category_path':'首页，母婴',
+            'on_time':'2019-06-01',
+            'off_time':'2219-06-01',
+            'brand_id':'4123',
+            'brand_url':'http://brand.url.com',
+            'mobile_brand_url':'http://brand.url.com',
+            'ios_brand_schema':'app://brand.url.com',
+            'android_brand_schema':'app://brand.url.com',
+            'brand_logo':'http://brand.url.com/logo.jpg',
+            'mobile_brand_logo':'http://brand.url.com/logo.jpg',
+            'shop_name':'测试',
+            'shop_id':'test',
+            'shop_url':'http://shop.url.com',
+            'mobile_shop_url':'http://shop.url.com/logo.jpg',
+            'ios_shop_schema':'app://shop.url.com',
+            'android_shop_schema':'app://shop.url.com',
+            'shop_logo':'http://shop.url.com/logo.jpg',
+            'mobile_shop_logo':'http://shop.url.com/logo.jpg',
+            'activity_content':'test',
+            'activity_start_time':'2019-06-01',
+            'activity_end_time':'2019-08-01',
+            'activity_url':'http://activeyte.url.com',
+            'short_name':'test',
+            'mobile_pic_url':'http://activeyte.url.com',
+            'mobile_activity_url':'http://activeyte.url.com',
+            'orig_price':'123',
+            'short_desc':'12',
+            'removed':'0',
+            'extend':'extend',
+            'mobile_pic_ratio':'1:2',
+            'mobile_pic_width':300,
+            'mobile_pic_height':400,
+            'mobile_pic_size':'300X400',
+            'pc_pic_url':'url',
+            'pic_ratio':'1:2',
+            'pic_width':300,
+            'pic_height':150,
+            'pic_size':'300X150'
+        });
+        py('event','viewSearch','keywords');
+        py('event','viewActivity',"adf");
+        py('event','viewChannel',{"name":"adf"});
+        py('event','viewUserIndex',33321);
+        py("event","viewCart",{"trackId":"mytest","money":"90.00","items":[{"id":"1001","count":"1","price":"20.00"},{"id":"1002","count":"2","price":"35.5.00"}]} );
+        py("remove","event","viewPage");
+        py('event','collect','100001','mytest');
+        py("event","order",{"id":"111222333","money":"90.00","items":[{"id":"1001","count":"1","price":"20.00"},{"id":"1002","count":"2","price":"35.00"}] });
+        py('event','addCart', '100001').track("mytest2");
+        py("event","register",{ 'id':'100001',"trackId":"mytest","data":{  "name":"Test","email":"test001@test.com" }});//.track("mytest2");
+        py("event","register",{ 'id':'100001',"trackId":"mytest","name":"Test","email":"test001@test.com","data":{  "name":"Test","email":"test001@test.com" }});
+        py('event','leads',{ 'id':'100001',"trackId":"mytest","data":{"name":"Test","mobile":"152****0312", "type":"SAX"}});//.track("mytest2");
+        py("event","custom",'play',{"id": "10002","trackId":"mytest","data":{ "name":"互动视频1","mobile":"152****0321"}});//.track("mytest2");
+        py("event","consult","trackId",{"message":"testMessage"});
+        py("event","message","trackId",{"message":"testMessage"});
+        py("event","purchase",{"id":"111222333","trackId":"mytest","money":"90.00","price":"89.00","items":[{"id":"1001","count":"1","price":"20.00"},{"id":"1002","count":"2","price":"35.00"}] });//.track("mytest2");
+        py('event','statistics','trackId');
+        py('event','standingTime');
+        py('event','scrollEvent');
+    }
+    function trackFun(){
+        py('set','domain',['stats.ipinyou.com','www.baidu.com']);
+        py('set','user','abc',{'category':"123"});
+        py('event','viewItem','no001');
+        py('event','addCart', '100001',"mytest2");
+    }
+    /**
+     * 格式化请求url
+     * 使用场景：测试转化代码健壮性。
+     * 应用方式，将V3中createScript(src)替换为testScript(adv)
+     */
+    function testScript(src) {
+        var queryParam = {};
+        var params = src.split('?')[1].split('&');
+        for (let i=0;i<params.length;i++) {
+            var pair = params[i].split("=");
+            queryParam[pair[0]] = decodeURIComponent(pair[1]);
+        }
+        console.table(queryParam);
+    }
+    function clickTrack(){console.info("inin");py.$.e(trackFun)};
+</script>
+<script>
+    var xxx="aa";
+    (function(w,d,s,l,a){
+        w._CommandName_=l;w[l]=w[l]||function(){(w[l].q=w[l].q||[]).push(arguments);
+            w[l].track = function(){(w[l].q[w[l].q.length-1].t=[]).push(arguments)};return w[l]},
+            w[l].a=a,w[l].l=1*new Date();
+        var c = d.createElement(s);c.async=1;
+        // c.src='../js/a_4.3.js';//(f ? 'https' : 'http') + '://'+(f?'fm.ipinyou.com':'fm.p0y.cn')+'/j/t/adv.js';
+        c.src='../js/py-analysis-source-4.3.js';
+        var h = d.getElementsByTagName("script")[0];h.parentNode.insertBefore(c, h);
+    })(window,document,'script','py','CO..0N23Vfr5D4WX-uxZnAPJR_');
+    testFun(); // 执行测试
+</script>
+<body>
+<input type="button"  name="trackButton" onclick="trackFun()" value="测试转化请求"/>
+</body>
+</html>
